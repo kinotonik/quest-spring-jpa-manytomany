@@ -2,7 +2,9 @@ package com.wildcodeschool.wildandwizard.controller;
 
 import com.wildcodeschool.wildandwizard.entity.Course;
 import com.wildcodeschool.wildandwizard.entity.Wizard;
+import com.wildcodeschool.wildandwizard.entity.WizardCourse;
 import com.wildcodeschool.wildandwizard.repository.CourseRepository;
+import com.wildcodeschool.wildandwizard.repository.WizardCourseRepository;
 import com.wildcodeschool.wildandwizard.repository.WizardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,8 @@ public class WizardController {
     @Autowired
     private WizardRepository wizardRepository;
 
+    @Autowired
+    private WizardCourseRepository wizardCourseRepository;
     @GetMapping("/")
     public String getWizards(Model out) {
 
@@ -94,6 +98,7 @@ public class WizardController {
         return "redirect:/wizard/register?idWizard=" + idWizard;
     }
 
+
     public Method getMethod(Object obj, String methodName, Class[] args) {
         Method method;
         try {
@@ -104,4 +109,5 @@ public class WizardController {
         }
         return null;
     }
+
 }

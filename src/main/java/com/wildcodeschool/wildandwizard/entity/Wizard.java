@@ -1,12 +1,12 @@
 package com.wildcodeschool.wildandwizard.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "wizard")
 public class Wizard {
 
     @Id
@@ -19,7 +19,25 @@ public class Wizard {
     private String biography;
     private boolean muggle;
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "wizard_course",
+            joinColumns = @JoinColumn(name = "wizard_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private List<Course> courses = new ArrayList<>();
     public Wizard() {
+    }
+
+    public Wizard(Long id, String firstName, String lastName, Date birthday, String birthPlace, String biography, boolean muggle, List<Course> courses) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.birthPlace = birthPlace;
+        this.biography = biography;
+        this.muggle = muggle;
+        this.courses = courses;
     }
 
     public Long getId() {
@@ -76,5 +94,13 @@ public class Wizard {
 
     public void setMuggle(boolean muggle) {
         this.muggle = muggle;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 }
